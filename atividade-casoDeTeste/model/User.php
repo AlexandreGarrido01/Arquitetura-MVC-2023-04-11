@@ -25,7 +25,7 @@ class User
 
     function calcularImposto()
     {
-        $this->imposto = ($this->rendimento / 100) * $this->aliquota;
+        $this->imposto = number_format( ($this->rendimento / 100) * $this->aliquota,2,',','.');
     }
 
 

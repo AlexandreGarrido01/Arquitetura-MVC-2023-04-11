@@ -1,17 +1,8 @@
-<?php
 
+<?php
 session_start();
 
-$cpfInvalido = false;
-
-if (isset($_SESSION['cpfInvalido'])) {
-    $cpfInvalido = true;
-    unset($_SESSION['cpfInvalido']);
-    session_destroy();
-}
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,11 +17,11 @@ if (isset($_SESSION['cpfInvalido'])) {
 
 <body>
     <div class="alinhamento-forms">
-        <form method="POST" action="./resultado.php" class="formulario">
+        <form method="POST" action="../controller/validacpf.php" class="formulario">
             <h1 class="titulo">CALCULAR IMPOSTO</h1>
             <input type="text" class="input nome" name="nome" placeholder="Digite seu Nome" required />
             <?php 
-                if($cpfInvalido){
+                if(isset($_SESSION['cpfInvalido'])){
                     echo("
                         <p style='color:#DC143C; font-weight:bold; text-align:left; text-shadow: 1px 1px black;'>
                            CPF INVALIDO     
@@ -47,3 +38,18 @@ if (isset($_SESSION['cpfInvalido'])) {
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+<?php
+if (isset($_SESSION['cpfInvalido'])) {
+    unset($_SESSION['cpfInvalido']);
+    session_destroy();
+}
+?>

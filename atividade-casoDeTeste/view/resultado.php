@@ -1,19 +1,12 @@
 <?php
 
 require_once dirname(__FILE__) . '\..\model\User.php';
-require_once dirname(__FILE__) . '\..\controller\validacao.php';
-
-session_start();
-
-$cpf = $_POST['cpf'];
-if (!Validacao::validarCPF($cpf)) {
-    $_SESSION['cpfInvalido'] = uniqid();
-    header("Location:./index.php");
-}
+require_once dirname(__FILE__) . '\..\model\validacao.php';
 
 
-$nome = $_POST['nome'];
-$rendimento = $_POST['rendimento'];
+$nome = $_GET['nome'];
+$rendimento = $_GET['rendimento'];
+$cpf = $_GET['cpf'];
 
 $user = new User();
 $user->setNome($nome);
@@ -21,6 +14,7 @@ $user->setCpf($cpf);
 $user->setRendimento($rendimento);
 $user->calcularAliquota();
 $user->calcularImposto();
+
 ?>
 
 
@@ -43,7 +37,7 @@ $user->calcularImposto();
                 <p>Aliquota: <?php echo $user->aliquota; ?>% </p>
             </div>
             <div class="imposto">
-                <p>Imposto a pagar: R$ <?php echo number_format($user->imposto, 2, ',', '.'); ?></p>
+                <p>Imposto a pagar: R$ <?php echo $user->imposto ?></p>
             </div>
         </div>
     </div>
